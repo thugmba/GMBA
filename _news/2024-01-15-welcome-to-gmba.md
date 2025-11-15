@@ -2,7 +2,6 @@
 layout: news-post
 title: "Welcome to Tunghai Global MBA 2024"
 date: 2024-01-15
-image: /assets/images/uploads/welcome-2024.jpg
 excerpt: "We are thrilled to welcome the new cohort of Global MBA students for the 2024 academic year."
 published: true
 ---
