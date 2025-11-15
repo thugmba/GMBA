@@ -1,0 +1,35 @@
+# Site settings
+title: Global MBA Program
+description: Tunghai University Global MBA - Cultivating Future Business Leaders
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+theme: minima
+
+# Collections
+collections:
+  news:
+    output: true
+    permalink: /news/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "news"
+    values:
+      layout: "news-post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
