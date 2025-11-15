@@ -86,7 +86,7 @@ title: Global MBA Program
     <!-- News will be loaded dynamically from GitHub Issues -->
   </div>
   <div class="news-archive-link">
-    <a href="/news" class="btn btn-outline">View All News</a>
+    <a href="/GMBA/news" class="btn btn-outline">View All News</a>
   </div>
 </div>
 
