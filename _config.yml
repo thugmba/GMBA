@@ -2,7 +2,12 @@
 title: Global MBA Program
 description: Tunghai University Global MBA - Cultivating Future Business Leaders
 baseurl: "/GMBA" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+url: "https://thugmba.github.io" # the base hostname & protocol for your site
+
+# Contact Information
+email: gmba@thu.edu.tw
+phone: "+886-4-2359-XXXX"
+address: "1727, Section 4, Taiwan Boulevard, Xitun District, Taichung City 40704, Taiwan"
 
 # Build settings
 markdown: kramdown
