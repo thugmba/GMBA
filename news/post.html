@@ -1,8 +1,18 @@
 ---
 layout: page
 title: News Post
-permalink: /news/:number/
+permalink: /news/post.html
 ---
+
+<div class="breadcrumb-container">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">Home</a> /
+      <a href="{{ '/news' | relative_url }}">News</a> /
+      <span id="post-title-breadcrumb">Loading...</span>
+    </div>
+  </div>
+</div>
 
 <div class="news-post-content">
   <!-- News post will be loaded dynamically from GitHub Issues -->

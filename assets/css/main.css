@@ -501,6 +501,26 @@ a:hover {
   color: white;
 }
 
+.breadcrumb-container {
+  background: var(--bg-light);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb-container .breadcrumb {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.breadcrumb-container .breadcrumb a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.breadcrumb-container .breadcrumb a:hover {
+  text-decoration: underline;
+}
+
 /* Page Content */
 .page-content {
   margin: 2rem 0 4rem;

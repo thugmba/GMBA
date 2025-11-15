@@ -130,9 +130,9 @@ async function displayHomeNews() {
       ${item.image ? `<img src="${item.image}" alt="${item.title}" class="news-image">` : ''}
       <div class="news-content">
         <time datetime="${item.date.toISOString()}">${formatDate(item.date)}</time>
-        <h3><a href="/GMBA/news/${item.number}">${item.title}</a></h3>
+        <h3><a href="/GMBA/news/post.html?id=${item.number}">${item.title}</a></h3>
         <p>${item.excerpt}</p>
-        <a href="/GMBA/news/${item.number}" class="read-more">Read More →</a>
+        <a href="/GMBA/news/post.html?id=${item.number}" class="read-more">Read More →</a>
       </div>
     </article>
   `).join('');
@@ -164,9 +164,9 @@ async function displayAllNews() {
       </div>
       <div class="news-item-content">
         ${item.image ? `<div class="news-item-image"><img src="${item.image}" alt="${item.title}"></div>` : ''}
-        <h2><a href="/GMBA/news/${item.number}">${item.title}</a></h2>
+        <h2><a href="/GMBA/news/post.html?id=${item.number}">${item.title}</a></h2>
         <p class="excerpt">${item.excerpt}</p>
-        <a href="/GMBA/news/${item.number}" class="read-more">Read Full Article →</a>
+        <a href="/GMBA/news/post.html?id=${item.number}" class="read-more">Read Full Article →</a>
       </div>
     </article>
   `).join('');
@@ -177,12 +177,14 @@ async function displayNewsPost() {
   const newsContent = document.querySelector('.news-post-content');
   if (!newsContent) return;
 
-  // Get issue number from URL
-  const pathParts = window.location.pathname.split('/');
-  const issueNumber = pathParts[pathParts.length - 1];
+  // Get issue number from URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const issueNumber = urlParams.get('id');
+
+  console.log('Loading news post ID:', issueNumber);
 
   if (!issueNumber || isNaN(issueNumber)) {
-    newsContent.innerHTML = '<p>News post not found.</p>';
+    newsContent.innerHTML = '<p>News post not found. Please check the URL.</p>';
     return;
   }
 
@@ -227,8 +229,12 @@ async function displayNewsPost() {
       </footer>
     `;
 
-    // Update page title
+    // Update page title and breadcrumb
     document.title = `${issue.title} | Global MBA Program`;
+    const breadcrumb = document.getElementById('post-title-breadcrumb');
+    if (breadcrumb) {
+      breadcrumb.textContent = issue.title;
+    }
 
   } catch (error) {
     console.error('Error loading news post:', error);
@@ -252,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         (path.endsWith('/news/') || path.endsWith('/news/index.html')) ||
                         document.querySelector('.news-list');
 
-  const isNewsPost = path.match(/\/news\/\d+/) ||
+  const isNewsPost = path.includes('/news/post.html') ||
                      document.querySelector('.news-post-content');
 
   console.log('Page detection:', { isHomepage, isNewsArchive, isNewsPost });
