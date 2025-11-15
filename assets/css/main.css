@@ -452,7 +452,34 @@ a:hover {
   max-width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  margin: 2rem 0;
+  margin: 2rem auto;
+  display: block;
+  box-shadow: var(--shadow);
+}
+
+.post-content a {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.post-content a:hover {
+  color: var(--primary-color);
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.post-content li {
+  margin: 0.5rem 0;
+}
+
+.post-content h2,
+.post-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .post-footer {

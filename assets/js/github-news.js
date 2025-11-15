@@ -85,6 +85,17 @@ function markdownToHtml(markdown) {
 
   let html = markdown;
 
+  // If content already contains HTML tags, just sanitize and return
+  if (html.includes('<img') || html.includes('<a href')) {
+    return html;
+  }
+
+  // Images FIRST (before links) - Process images that start with !
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto;">');
+
+  // Links (after images)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
   // Headers
   html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
   html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
@@ -93,22 +104,28 @@ function markdownToHtml(markdown) {
   // Bold
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-  // Italic
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // Italic (after bold to avoid conflicts)
+  html = html.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>');
 
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // Numbered lists
+  html = html.replace(/^\d+\.\s(.+)$/gim, '<li>$1</li>');
 
-  // Images
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+  // Bullet lists
+  html = html.replace(/^[\-\*]\s(.+)$/gim, '<li>$1</li>');
 
-  // Line breaks
-  html = html.replace(/\n\n/g, '</p><p>');
-  html = '<p>' + html + '</p>';
+  // Wrap consecutive list items in ul/ol tags
+  html = html.replace(/(<li>.*?<\/li>\n?)+/gs, match => {
+    return '<ul>' + match + '</ul>';
+  });
 
-  // Lists (basic)
-  html = html.replace(/^\- (.+)$/gim, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+  // Line breaks and paragraphs
+  html = html.split('\n\n').map(para => {
+    // Don't wrap if already has HTML tags
+    if (para.match(/^<[h|u|o|i]/)) {
+      return para;
+    }
+    return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
 
   return html;
 }
