@@ -5,13 +5,19 @@ const GITHUB_API = `https://api.github.com/repos/${GITHUB_REPO}/issues`;
 // Fetch news from GitHub Issues with 'news' label
 async function fetchNews(limit = null) {
   try {
-    const response = await fetch(`${GITHUB_API}?labels=news&state=open&sort=created&direction=desc`);
+    console.log('Fetching news from GitHub Issues API...');
+    const url = `${GITHUB_API}?labels=news&state=open&sort=created&direction=desc`;
+    console.log('API URL:', url);
+
+    const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch news');
+      console.error('API response not OK:', response.status, response.statusText);
+      throw new Error(`Failed to fetch news: ${response.status}`);
     }
 
     const issues = await response.json();
+    console.log('Fetched issues:', issues.length);
 
     // Filter and transform issues
     let news = issues.map(issue => ({
@@ -24,9 +30,12 @@ async function fetchNews(limit = null) {
       image: extractImage(issue.body)
     }));
 
+    console.log('Transformed news:', news);
+
     // Limit results if specified
     if (limit) {
       news = news.slice(0, limit);
+      console.log(`Limited to ${limit} news items`);
     }
 
     return news;
@@ -231,15 +240,36 @@ async function displayNewsPost() {
 document.addEventListener('DOMContentLoaded', function() {
   // Check which page we're on and load appropriate content
   const path = window.location.pathname;
+  console.log('Current path:', path);
 
-  if (path === '/GMBA/' || path === '/GMBA/index.html') {
+  // More flexible path detection
+  const isHomepage = path === '/GMBA/' ||
+                     path === '/GMBA/index.html' ||
+                     path.endsWith('/') && path.includes('index') ||
+                     document.querySelector('.news-grid') && !document.querySelector('.news-list');
+
+  const isNewsArchive = path.includes('/news/') &&
+                        (path.endsWith('/news/') || path.endsWith('/news/index.html')) ||
+                        document.querySelector('.news-list');
+
+  const isNewsPost = path.match(/\/news\/\d+/) ||
+                     document.querySelector('.news-post-content');
+
+  console.log('Page detection:', { isHomepage, isNewsArchive, isNewsPost });
+
+  if (isHomepage) {
     // Homepage - load latest 3 news
+    console.log('Loading homepage news...');
     displayHomeNews();
-  } else if (path === '/GMBA/news/' || path === '/GMBA/news/index.html') {
-    // News archive page - load all news
-    displayAllNews();
-  } else if (path.match(/\/GMBA\/news\/\d+/)) {
+  } else if (isNewsPost) {
     // Single news post page
+    console.log('Loading single news post...');
     displayNewsPost();
+  } else if (isNewsArchive) {
+    // News archive page - load all news
+    console.log('Loading news archive...');
+    displayAllNews();
+  } else {
+    console.log('No matching page type found');
   }
 });
