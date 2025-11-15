@@ -82,32 +82,14 @@ title: Global MBA Program
 ## Latest News
 
 <div class="news-section">
-  {% assign recent_news = site.news | where: "published", true | sort: 'date' | reverse | limit: 3 %}
-  {% if recent_news.size > 0 %}
-    <div class="news-grid">
-      {% for post in recent_news %}
-        <article class="news-card">
-          {% if post.image %}
-            <img src="{{ post.image }}" alt="{{ post.title }}" class="news-image">
-          {% endif %}
-          <div class="news-content">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
-            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            {% if post.excerpt %}
-              <p>{{ post.excerpt }}</p>
-            {% endif %}
-            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
-    <div class="news-archive-link">
-      <a href="/news" class="btn btn-outline">View All News</a>
-    </div>
-  {% else %}
-    <p>No news available at the moment. Check back soon!</p>
-  {% endif %}
+  <div class="news-grid">
+    <!-- News will be loaded dynamically from GitHub Issues -->
+  </div>
+  <div class="news-archive-link">
+    <a href="/news" class="btn btn-outline">View All News</a>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="/assets/js/charts.js"></script>
+<script src="/assets/js/github-news.js"></script>

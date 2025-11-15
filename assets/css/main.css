@@ -685,6 +685,36 @@ a:hover {
   }
 }
 
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.loading::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+.no-news {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+}
+
+/* News Post Page */
+.news-post-content {
+  min-height: 400px;
+}
+
 @media print {
   .navbar,
   .footer,

@@ -13,19 +13,8 @@ address: "1727, Section 4, Taiwan Boulevard, Xitun District, Taichung City 40704
 markdown: kramdown
 theme: minima
 
-# Collections
-collections:
-  news:
-    output: true
-    permalink: /news/:year/:month/:day/:title/
-
 # Defaults
 defaults:
-  - scope:
-      path: ""
-      type: "news"
-    values:
-      layout: "news-post"
   - scope:
       path: ""
     values:

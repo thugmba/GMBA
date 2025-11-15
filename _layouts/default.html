@@ -9,9 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  {% if page.url == '/' %}
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  {% endif %}
 </head>
 <body>
   <nav class="navbar">
@@ -89,18 +86,5 @@
   </footer>
 
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-  {% if page.url == '/' %}
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
-  {% endif %}
 </body>
 </html>

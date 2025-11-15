@@ -5,42 +5,47 @@ This is the official website for the Tunghai University Global MBA Program, buil
 ## Features
 
 - 📱 Responsive design for all devices
-- 📝 Decap CMS for easy content management (no technical knowledge required)
+- 📝 **Super simple news posting via GitHub Issues** (just fill out a form!)
 - 📊 Interactive class profile visualizations using Chart.js
-- 📰 Dynamic news section
+- 📰 Dynamic news section powered by GitHub Issues API
 - 🎨 Modern, professional design
 - ⚡ Fast, static site generation with Jekyll
+- 🚀 Hosted entirely on GitHub Pages - no external dependencies
+- 📱 Post news from any device (desktop, tablet, mobile)
 
 ## Project Structure
 
 ```
 GMBA/
+├── .github/
+│   └── ISSUE_TEMPLATE/      # GitHub Issue templates
+│       ├── news-post.md     # Template for news posts
+│       └── config.yml       # Issue template configuration
 ├── _config.yml              # Jekyll configuration
 ├── _layouts/                # Page templates
 │   ├── default.html         # Base layout
 │   ├── home.html            # Homepage layout
 │   ├── page.html            # Static page layout
 │   └── news-post.html       # News post layout
-├── _news/                   # News posts (managed by Decap CMS)
-├── admin/                   # Decap CMS admin interface
-│   ├── config.yml           # CMS configuration
-│   └── index.html           # CMS admin page
 ├── assets/
 │   ├── css/
 │   │   └── main.css         # Main stylesheet
 │   ├── js/
 │   │   ├── main.js          # Main JavaScript
-│   │   └── charts.js        # Chart.js visualizations
+│   │   ├── charts.js        # Chart.js visualizations
+│   │   └── github-news.js   # Fetch news from GitHub Issues
 │   └── images/
-│       └── uploads/         # Uploaded images (via CMS)
+│       └── uploads/         # Uploaded images
 ├── index.md                 # Homepage
 ├── about.md                 # About page
 ├── program.md               # Program page
 ├── admissions.md            # Admissions page
 ├── contact.md               # Contact page
 ├── news/
-│   └── index.md             # News archive page
+│   ├── index.md             # News archive page
+│   └── post.html            # Single news post page
 ├── Gemfile                  # Ruby dependencies
+├── HOW_TO_POST_NEWS.md      # Guide for posting news via GitHub Issues
 └── README.md                # This file
 ```
 
@@ -57,7 +62,7 @@ GMBA/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/GMBA.git
+   git clone https://github.com/thugmba/GMBA.git
    cd GMBA
    ```
 
@@ -76,98 +81,52 @@ GMBA/
 
 ### 2. Deploy to GitHub Pages
 
-#### Step 1: Create GitHub Repository
+#### Step 1: Push to GitHub
 
-1. Create a new repository on GitHub (e.g., `thu-gmba`)
-2. Initialize Git in your project folder (if not already done):
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   ```
-
-3. Connect to GitHub and push:
-   ```bash
-   git remote add origin https://github.com/yourusername/thu-gmba.git
-   git branch -M main
-   git push -u origin main
-   ```
+```bash
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/thugmba/GMBA.git
+git branch -M main
+git push -u origin main
+```
 
 #### Step 2: Enable GitHub Pages
 
-1. Go to your repository on GitHub
-2. Click on **Settings** → **Pages**
-3. Under **Source**, select `main` branch
-4. Click **Save**
-5. Your site will be published at `https://yourusername.github.io/thu-gmba/`
+1. Go to: https://github.com/thugmba/GMBA/settings/pages
+2. Under **Source**, select `main` branch
+3. Click **Save**
+4. Your site will be published at: `https://thugmba.github.io/GMBA/`
 
-#### Step 3: Set Up Decap CMS with Netlify Identity (Recommended)
+### 3. How to Post News
 
-For the CMS to work on GitHub Pages, you need to set up authentication:
+**Super Simple!** News posts are created as GitHub Issues - just fill out a form!
 
-**Option A: Use Netlify (Recommended)**
+📖 **See [HOW_TO_POST_NEWS.md](HOW_TO_POST_NEWS.md) for complete step-by-step instructions**
 
-1. Sign up for a free account at [Netlify](https://www.netlify.com/)
-2. Connect your GitHub repository
-3. Deploy the site on Netlify
-4. Enable Netlify Identity:
-   - Go to **Site settings** → **Identity**
-   - Click **Enable Identity**
-   - Under **Registration preferences**, select "Invite only"
-   - Under **External providers**, you can enable GitHub, Google, etc.
-5. Enable Git Gateway:
-   - Go to **Site settings** → **Identity** → **Services**
-   - Enable **Git Gateway**
+#### Quick Start (5 Steps):
 
-**Option B: GitHub Pages with External OAuth**
+1. Go to: https://github.com/thugmba/GMBA/issues/new/choose
+2. Click **"Get started"** next to "News Post"
+3. Fill in the title and content (template guides you)
+4. Drag & drop images if needed
+5. Click **"Submit new issue"** - Done! News appears instantly!
 
-1. Set up OAuth application on GitHub
-2. Configure the backend in `admin/config.yml`
+#### Why GitHub Issues?
 
-For detailed instructions, see [Decap CMS Documentation](https://decapcms.org/docs/github-backend/)
+✅ **Easiest method** - Just fill out a form, no file editing
+✅ **Image upload** - Drag and drop images directly
+✅ **Mobile friendly** - Post news from your phone
+✅ **No mistakes** - Template guides you through the process
+✅ **Easy editing** - Edit or delete news with one click
+✅ **Team collaboration** - Discuss news posts in comments
 
-### 3. Using Decap CMS
+#### Adding Administrators:
 
-#### For Administrators (Adding News Posts)
-
-1. **Access the CMS:**
-   - Navigate to `https://yoursite.com/admin/`
-   - Log in with your credentials
-
-2. **Create a new news post:**
-   - Click on **"News"** in the left sidebar
-   - Click **"New News"**
-   - Fill in the form:
-     - **Title**: Enter the news title
-     - **Publish Date**: Select the date
-     - **Featured Image**: Upload an image (optional)
-     - **Summary**: Brief summary (shown in news listings)
-     - **Body**: Write your news content (supports Markdown)
-     - **Published**: Toggle to publish/unpublish
-   - Click **"Publish"** → **"Publish now"**
-
-3. **Edit existing posts:**
-   - Click on any post in the list
-   - Make your changes
-   - Click **"Publish"** → **"Publish now"**
-
-4. **Upload images:**
-   - When editing, click the **"+"** button in the body
-   - Select **"Image"**
-   - Upload your image
-   - Add alt text for accessibility
-
-#### Tips for Non-Technical Users
-
-- **Markdown basics** (for formatting text):
-  - `# Heading` - Large heading
-  - `## Subheading` - Smaller heading
-  - `**bold text**` - Bold text
-  - `*italic text*` - Italic text
-  - `[link text](url)` - Create a link
-  - `![image](url)` - Insert an image
-- **Save drafts**: You can save posts as drafts and publish them later
-- **Preview**: Use the preview pane to see how your post will look
+1. Go to: https://github.com/thugmba/GMBA/settings/access
+2. Click **"Invite a collaborator"**
+3. Enter their GitHub username or email
+4. They receive an invitation and can start posting news!
 
 ## Customization
 
@@ -245,25 +204,17 @@ bundle update
 - News posts are stored in the `_news/` folder
 - Images are stored in `assets/images/uploads/`
 
-### Adding Administrators
-
-If using Netlify Identity:
-1. Go to your Netlify site dashboard
-2. Navigate to **Identity** → **Invite users**
-3. Enter the email address of the new administrator
-4. They will receive an invitation email
-
 ## Troubleshooting
 
-### CMS not loading
-- Check that you've properly configured authentication (Netlify Identity or GitHub OAuth)
-- Ensure `admin/config.yml` is correctly configured
-- Check browser console for errors
+### News not showing up
+- Check that `published: true` is set
+- Wait 2-3 minutes for GitHub Pages to rebuild
+- Clear your browser cache
 
-### Images not showing
-- Verify the image path is correct
+### Images not displaying
+- Verify the image path is correct (`/GMBA/assets/images/uploads/filename.jpg`)
 - Ensure images are uploaded to `assets/images/uploads/`
-- Check file permissions
+- Check that the filename matches exactly (case-sensitive)
 
 ### Build errors
 - Run `bundle exec jekyll build` to see detailed error messages
@@ -280,7 +231,7 @@ If using Netlify Identity:
 For questions or issues:
 - Email: gmba@thu.edu.tw
 - Check [Jekyll documentation](https://jekyllrb.com/docs/)
-- Check [Decap CMS documentation](https://decapcms.org/docs/)
+- See [HOW_TO_POST_NEWS.md](HOW_TO_POST_NEWS.md) for posting instructions
 
 ## License
 
